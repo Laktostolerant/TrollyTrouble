@@ -9,6 +9,8 @@ public class MapGenerator : MonoBehaviour
     List<GameObject> tiles = new List<GameObject>();
     int numberOfTilesSpawned;
 
+    [SerializeField] Zone[] zones;
+
     [SerializeField] GameObject cameraObj;
 
     Vector3 cameraTargetPosition;
@@ -32,7 +34,7 @@ public class MapGenerator : MonoBehaviour
         Quaternion rot = Quaternion.identity;
 
         newTilePosition = new Vector3(originTransform.position.x, originTransform.position.y, originTransform.position.z + (50 * numberOfTilesSpawned));
-        GameObject temp = Instantiate(tileObject, newTilePosition, rot);
+        GameObject temp = Instantiate(zones[0].Tiles[Random.Range(0, zones[0].Tiles.Length)], newTilePosition, rot);
         tiles.Add(temp);
 
         numberOfTilesSpawned++;
@@ -41,7 +43,7 @@ public class MapGenerator : MonoBehaviour
 
     IEnumerator Despawn(GameObject obj)
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(30);
         Destroy(obj);
     }
 }

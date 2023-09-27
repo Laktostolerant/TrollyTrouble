@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e03f2f1a1e95f34f96121ba27f4816d, type: 3}
+  m_Name: City1
+  m_EditorClassIdentifier: 
+  weight: 100
+  tiles:
+  - {fileID: 7422569485790668243, guid: 3ede573ae8759c04db6deea4b240f300, type: 3}
+  - {fileID: 5254062313787861263, guid: b2a64ae16c25357458b6ab1f0e0051c4, type: 3}
+  - {fileID: 5254062313787861263, guid: b29eb5ddf5c4779429152a6dafc26b53, type: 3}
+  tunnelPrefab: {fileID: 5254062313787861263, guid: 00898ea54dc39214db0a5ff6d43d3a61,
+    type: 3}
+  zoneMinSize: 10
+  zoneMaxSize: 70
+  skybox: {fileID: 0}
+  brightness: 0

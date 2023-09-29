@@ -38,7 +38,7 @@ public class MapGenerator : MonoBehaviour
         Vector3 newTilePosition = originTransform.position;
         Instantiate(zones[chosenZone].TunnelPrefab, new Vector3(originTransform.position.x, originTransform.position.y, originTransform.position.z + (50 * numberOfTilesSpawned)), Quaternion.identity);
 
-        StartCoroutine(Fader(true));
+        //StartCoroutine(Fader(true));
     }
 
 
@@ -88,7 +88,6 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        // In case something goes wrong, return -1
         Debug.LogError("Failed to select a random zone index.");
         return -1;
     }

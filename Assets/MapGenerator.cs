@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -17,33 +17,100 @@ public class MapGenerator : MonoBehaviour
 
     [SerializeField] Transform originTransform;
 
+    [SerializeField] Image fadeImage;
+
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnNewTile", 3, 0.25f);
+        GenerateZone();
     }
+
+    void GenerateZone()
+    {
+        int chosenZone = SelectRandomZoneIndex();
+        int numberOftiles = Random.Range(zones[chosenZone].MinSize, zones[chosenZone].MaxSize);
+
+        for(int i = 0; i < numberOftiles; i++)
+        {
+            SpawnNewTile(chosenZone);
+        }
+
+        Vector3 newTilePosition = originTransform.position;
+        Instantiate(zones[chosenZone].TunnelPrefab, new Vector3(originTransform.position.x, originTransform.position.y, originTransform.position.z + (50 * numberOfTilesSpawned)), Quaternion.identity);
+
+        StartCoroutine(Fader(true));
+    }
+
 
     private void FixedUpdate()
     {
         cameraObj.transform.position = new Vector3(cameraObj.transform.position.x, cameraObj.transform.position.y, cameraObj.transform.position.z + 1.5f);
     }
 
-    void SpawnNewTile()
+    void SpawnNewTile(int zoneID)
     {
         Vector3 newTilePosition = originTransform.position;
         Quaternion rot = Quaternion.identity;
 
         newTilePosition = new Vector3(originTransform.position.x, originTransform.position.y, originTransform.position.z + (50 * numberOfTilesSpawned));
-        GameObject temp = Instantiate(zones[0].Tiles[Random.Range(0, zones[0].Tiles.Length)], newTilePosition, rot);
+        GameObject temp = Instantiate(zones[zoneID].Tiles[Random.Range(0, zones[0].Tiles.Length)], newTilePosition, rot);
         tiles.Add(temp);
 
         numberOfTilesSpawned++;
-        StartCoroutine(Despawn(temp));
     }
 
-    IEnumerator Despawn(GameObject obj)
+    public int SelectRandomZoneIndex()
     {
-        yield return new WaitForSeconds(30);
-        Destroy(obj);
+        int totalWeight = 0;
+        int additiveWeight = 0;
+        int randomChosenValue = Random.Range(0, totalWeight);
+
+        if (zones == null || zones.Length == 0)
+        {
+            Debug.LogError("The 'zones' array is empty or null.");
+            return -1; // Error code
+        }
+
+        // Calculate the total weight
+        foreach (Zone zone in zones)
+        {
+            totalWeight += zone.Weight;
+        }
+
+        // Use Random.Range to select an index based on the weights
+
+        for (int i = 0; i < zones.Length; i++)
+        {
+            additiveWeight += zones[i].Weight;
+            if (randomChosenValue < additiveWeight)
+            {
+                return i; // Return the index of the selected zone
+            }
+        }
+
+        // In case something goes wrong, return -1
+        Debug.LogError("Failed to select a random zone index.");
+        return -1;
+    }
+
+    IEnumerator Fader(bool darken)
+    {
+        Color c = fadeImage.color;
+        int multiplier;
+
+
+        multiplier = darken ? 1 : -1;
+
+        for(int i = 0; i < 101; i++)
+        {
+            float incriment = i / 100f;
+
+            Debug.Log("i: " + i);
+            Debug.Log("incriment: " + incriment);
+
+            c.a = incriment * multiplier;
+            fadeImage.color = c;
+            yield return new WaitForSeconds(0.005f);
+        }
     }
 }

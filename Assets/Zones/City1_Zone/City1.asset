@@ -17,6 +17,9 @@ MonoBehaviour:
   - {fileID: 7422569485790668243, guid: 3ede573ae8759c04db6deea4b240f300, type: 3}
   - {fileID: 5254062313787861263, guid: b2a64ae16c25357458b6ab1f0e0051c4, type: 3}
   - {fileID: 5254062313787861263, guid: b29eb5ddf5c4779429152a6dafc26b53, type: 3}
+  - {fileID: 5254062313787861263, guid: f109c0ba97901fd44924a185d0141d15, type: 3}
+  - {fileID: 5254062313787861263, guid: 5453693cf312b2a448ea32b689700d37, type: 3}
+  - {fileID: 5254062313787861263, guid: 85d18561e8267e64f9ba0592dcfecfd8, type: 3}
   tunnelPrefab: {fileID: 5254062313787861263, guid: 00898ea54dc39214db0a5ff6d43d3a61,
     type: 3}
   zoneMinSize: 10

@@ -12,15 +12,21 @@ public class Zone : ScriptableObject
     [SerializeField] GameObject[] tiles;
     public GameObject[] Tiles { get { return tiles; } set { tiles = value; } }
 
-    [SerializeField] GameObject tunnelPrefab;
-    public GameObject TunnelPrefab { get {  return tunnelPrefab; } set {  tunnelPrefab = value; } }
 
-    [Range(30, 100)]
+    [SerializeField] GameObject tunnelEntrance;
+    public GameObject TunnelEntrance { get {  return tunnelEntrance; } set {  tunnelEntrance = value; } }
+
+
+    [SerializeField] GameObject tunnelExit;
+    public GameObject TunnelExit { get { return tunnelExit; } set { tunnelExit = value; } }
+
+
+    [Range(1, 100)]
     [SerializeField] int zoneMinSize;
     public int MinSize { get { return zoneMinSize; } set { zoneMinSize = value; } }
 
 
-    [Range(31, 300)]
+    [Range(2, 300)]
     [SerializeField] int zoneMaxSize;
     public int MaxSize { get { return zoneMaxSize; } set { zoneMaxSize = value; } }
 

@@ -20,9 +20,11 @@ MonoBehaviour:
   - {fileID: 5254062313787861263, guid: f109c0ba97901fd44924a185d0141d15, type: 3}
   - {fileID: 5254062313787861263, guid: 5453693cf312b2a448ea32b689700d37, type: 3}
   - {fileID: 5254062313787861263, guid: 85d18561e8267e64f9ba0592dcfecfd8, type: 3}
-  tunnelPrefab: {fileID: 5254062313787861263, guid: 00898ea54dc39214db0a5ff6d43d3a61,
+  tunnelEntrance: {fileID: 5254062313787861263, guid: 00898ea54dc39214db0a5ff6d43d3a61,
     type: 3}
-  zoneMinSize: 10
-  zoneMaxSize: 70
+  tunnelExit: {fileID: 5254062313787861263, guid: 6749bca0a26389e46a71f01326f8c3e1,
+    type: 3}
+  zoneMinSize: 3
+  zoneMaxSize: 4
   skybox: {fileID: 0}
   brightness: 0

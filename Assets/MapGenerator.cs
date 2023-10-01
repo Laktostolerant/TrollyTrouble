@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 public class MapGenerator : MonoBehaviour
@@ -27,18 +29,20 @@ public class MapGenerator : MonoBehaviour
 
     void GenerateZone()
     {
+        Debug.Log("aye made a new zone");
+
         int chosenZone = SelectRandomZoneIndex();
-        int numberOftiles = Random.Range(zones[chosenZone].MinSize, zones[chosenZone].MaxSize);
+        int numberOftiles = UnityEngine.Random.Range(zones[chosenZone].MinSize, zones[chosenZone].MaxSize);
 
         for(int i = 0; i < numberOftiles; i++)
         {
-            SpawnNewTile(chosenZone);
+            SelectNewZoneTileFromList(chosenZone);
         }
 
-        Vector3 newTilePosition = originTransform.position;
-        Instantiate(zones[chosenZone].TunnelPrefab, new Vector3(originTransform.position.x, originTransform.position.y, originTransform.position.z + (50 * numberOfTilesSpawned)), Quaternion.identity);
-
-        //StartCoroutine(Fader(true));
+        SpawnNewTile(zones[chosenZone].TunnelEntrance);
+        numberOftiles++;
+        SpawnNewTile(zones[chosenZone].TunnelExit);
+        numberOftiles++;
     }
 
 
@@ -47,13 +51,19 @@ public class MapGenerator : MonoBehaviour
         cameraObj.transform.position = new Vector3(cameraObj.transform.position.x, cameraObj.transform.position.y, cameraObj.transform.position.z + 1.5f);
     }
 
-    void SpawnNewTile(int zoneID)
+    void SelectNewZoneTileFromList(int zoneID)
+    {
+        GameObject chosenTile = zones[zoneID].Tiles[UnityEngine.Random.Range(0, zones[0].Tiles.Length)];
+        SpawnNewTile(chosenTile);
+    }
+
+    void SpawnNewTile(GameObject tile)
     {
         Vector3 newTilePosition = originTransform.position;
         Quaternion rot = Quaternion.identity;
 
         newTilePosition = new Vector3(originTransform.position.x, originTransform.position.y, originTransform.position.z + (50 * numberOfTilesSpawned));
-        GameObject temp = Instantiate(zones[zoneID].Tiles[Random.Range(0, zones[0].Tiles.Length)], newTilePosition, rot);
+        GameObject temp = Instantiate(tile, newTilePosition, rot);
         tiles.Add(temp);
 
         numberOfTilesSpawned++;
@@ -63,7 +73,7 @@ public class MapGenerator : MonoBehaviour
     {
         int totalWeight = 0;
         int additiveWeight = 0;
-        int randomChosenValue = Random.Range(0, totalWeight);
+        int randomChosenValue = UnityEngine.Random.Range(0, totalWeight);
 
         if (zones == null || zones.Length == 0)
         {
@@ -92,24 +102,49 @@ public class MapGenerator : MonoBehaviour
         return -1;
     }
 
+    IEnumerator KillPreviousZone()
+    {
+        Debug.Log("time to put the ol' buggers in limbo.");
+
+        List<GameObject> limboList = new List<GameObject>();
+
+        foreach (GameObject zone in tiles)
+        {
+            limboList.Add(zone);
+        }
+
+        GenerateZone();
+
+        yield return new WaitForSeconds(3);
+
+        foreach (GameObject zone in limboList)
+        {
+            Destroy(zone);
+        }
+    }
+
+    public void GoToFader(bool darken)
+    {
+        StartCoroutine(Fader(darken));  
+    }
+
     IEnumerator Fader(bool darken)
     {
+        Debug.Log("fadin time");
+
+        if(!darken)
+            StartCoroutine(KillPreviousZone());
+
         Color c = fadeImage.color;
-        int multiplier;
 
-
-        multiplier = darken ? 1 : -1;
-
-        for(int i = 0; i < 101; i++)
+        for (int i = 0; i < 101; i++)
         {
             float incriment = i / 100f;
 
-            Debug.Log("i: " + i);
-            Debug.Log("incriment: " + incriment);
-
-            c.a = incriment * multiplier;
+            c.a = darken ? incriment : 1 - incriment;
             fadeImage.color = c;
             yield return new WaitForSeconds(0.005f);
         }
     }
+
 }

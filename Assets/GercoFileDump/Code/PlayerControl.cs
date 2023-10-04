@@ -1,51 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
-
+using UnityEngine.UIElements;
+using EZCameraShake;
 public class PlayerControl : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float targetRotation = 0;
+    public float targetLocation = 0;
 
-    // Update is called once per frame
     void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
+    {           
+
+     if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (this.transform.eulerAngles.y < 55)
+            if (targetRotation > -50)
             {
-                if (this.transform.position.x > -13 || this.transform.eulerAngles.y > 45)
+                if (targetLocation > -13 || targetRotation == -50)
                 {
-                    this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y - 50, this.transform.eulerAngles.z);
+                    targetRotation -= 50;
+                    CameraShaker.Instance.ShakeOnce(0.5f, 0.5f, 0.5f, 1f);
                 }
             }
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (this.transform.eulerAngles.y < 45 || this.transform.eulerAngles.y > 300)
+            if (targetRotation < 50)
             {
-                if (this.transform.position.x < 13 || this.transform.eulerAngles.y > 300)
+                if (targetLocation < 13 || targetRotation == 50)
                 {
-                    this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y + 50, this.transform.eulerAngles.z);
+                    targetRotation += 50;
+                    CameraShaker.Instance.ShakeOnce(0.5f, 0.5f, 0.5f, 1f);
                 }
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && this.transform.position.x > -13)
+        if (Input.GetKeyDown(KeyCode.A) && targetLocation > -13)
         {
-            this.transform.position = new Vector3(this.transform.position.x - 7, this.transform.position.y, this.transform.position.z);
-            this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, 0, this.transform.eulerAngles.z);
+            targetLocation -= 7;
+            targetRotation = 0;
+            CameraShaker.Instance.ShakeOnce(0.5f, 0.5f, 0.5f, 1f);
         }
 
-        if (Input.GetKeyDown(KeyCode.D) && this.transform.position.x < 13)
+        if (Input.GetKeyDown(KeyCode.D) && targetLocation < 13)
         {
-            this.transform.position = new Vector3(this.transform.position.x + 7, this.transform.position.y, this.transform.position.z);
-            this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, 0, this.transform.eulerAngles.z);
+            targetLocation += 7;
+            targetRotation = 0;
+            CameraShaker.Instance.ShakeOnce(0.5f, 0.5f, 0.5f, 1f);
         }
 
+        transform.position = Vector3.Lerp(transform.position, new Vector3(targetLocation, this.transform.position.y, this.transform.position.z), Time.deltaTime * 10);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, targetRotation, 0), Time.deltaTime * 10);
     }
+
 }
+
+

@@ -222,7 +222,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 30, z: -20}
+  m_LocalPosition: {x: 0, y: 27.47, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -707,6 +707,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1426711226}
   - component: {fileID: 1426711227}
+  - component: {fileID: 1426711228}
   m_Layer: 0
   m_Name: PlayerTrolley
   m_TagString: Untagged
@@ -723,7 +724,7 @@ Transform:
   m_GameObject: {fileID: 1426711225}
   serializedVersion: 2
   m_LocalRotation: {x: -0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: -8.209511, z: 31.897587}
+  m_LocalPosition: {x: 0, y: -6.4205303, z: 30.108608}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -744,6 +745,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2eddac0e128e2a41b059ee92c4a89c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetRotation: 0
+  targetLocation: 0
+--- !u!114 &1426711228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426711225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab8353b5ebd32545867da143199a814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultPosInfluence: {x: 0.15, y: 27, z: 0.15}
+  DefaultRotInfluence: {x: 1, y: 1, z: 1}
+  RestPositionOffset: {x: 0, y: 27.47, z: -20}
+  RestRotationOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &1455562087
 PrefabInstance:
   m_ObjectHideFlags: 0

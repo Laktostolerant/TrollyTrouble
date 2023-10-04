@@ -16,10 +16,9 @@ public class PlayerControl : MonoBehaviour
         {
             if (targetRotation > -50)
             {
-                if (targetLocation > -13 || targetRotation == -50)
+                if (targetLocation > -13 || targetRotation == 50)
                 {
                     targetRotation -= 50;
-                    CameraShaker.Instance.ShakeOnce(0.5f, 0.5f, 0.5f, 1f);
                 }
             }
         }
@@ -28,10 +27,9 @@ public class PlayerControl : MonoBehaviour
         {
             if (targetRotation < 50)
             {
-                if (targetLocation < 13 || targetRotation == 50)
+                if (targetLocation < 13 || targetRotation == -50)
                 {
                     targetRotation += 50;
-                    CameraShaker.Instance.ShakeOnce(0.5f, 0.5f, 0.5f, 1f);
                 }
             }
         }
@@ -40,14 +38,12 @@ public class PlayerControl : MonoBehaviour
         {
             targetLocation -= 7;
             targetRotation = 0;
-            CameraShaker.Instance.ShakeOnce(0.5f, 0.5f, 0.5f, 1f);
         }
 
         if (Input.GetKeyDown(KeyCode.D) && targetLocation < 13)
         {
             targetLocation += 7;
             targetRotation = 0;
-            CameraShaker.Instance.ShakeOnce(0.5f, 0.5f, 0.5f, 1f);
         }
 
         transform.position = Vector3.Lerp(transform.position, new Vector3(targetLocation, this.transform.position.y, this.transform.position.z), Time.deltaTime * 10);

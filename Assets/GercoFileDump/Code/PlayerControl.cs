@@ -20,7 +20,7 @@ public class PlayerControl : MonoBehaviour
                 if (targetLocation > -13 || targetRotation == 50)
                 {
                     targetRotation -= 50;
-                    CameraShaker.Instance.ShakeOnce(0.5f, 0.5f, 0.5f, 1f);
+                    CameraShaker.Instance.ShakeOnce(1f, 1f, 0.1f, 2f);
                 }
             }
         }
@@ -32,7 +32,7 @@ public class PlayerControl : MonoBehaviour
                 if (targetLocation < 13 || targetRotation == -50)
                 {
                     targetRotation += 50;
-                    CameraShaker.Instance.ShakeOnce(0.5f, 0.5f, 0.5f, 1f);
+                    CameraShaker.Instance.ShakeOnce(1f, 1f, 0.1f, 2f);
                 }
             }
         }
@@ -41,14 +41,14 @@ public class PlayerControl : MonoBehaviour
         {
             targetLocation -= 7;
             targetRotation = 0;
-            CameraShaker.Instance.ShakeOnce(0.5f, 0.5f, 0.5f, 1f);
+            CameraShaker.Instance.ShakeOnce(1f, 1f, 0.1f, 2f);
         }
 
         if (Input.GetKeyDown(KeyCode.D) && targetLocation < 13)
         {
             targetLocation += 7;
             targetRotation = 0;
-            CameraShaker.Instance.ShakeOnce(0.5f, 0.5f, 0.5f, 1f);
+            CameraShaker.Instance.ShakeOnce(1f, 1f, 0.1f, 2f);
         }
 
         Trolley.transform.position = Vector3.Lerp(Trolley.transform.position, new Vector3(targetLocation, Trolley.transform.position.y, Trolley.transform.position.z), Time.deltaTime * 10);

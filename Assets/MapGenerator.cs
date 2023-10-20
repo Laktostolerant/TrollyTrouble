@@ -10,6 +10,14 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] GameObject tileObject;
     List<GameObject> tiles = new List<GameObject>();
     int numberOfTilesSpawned;
+    int[] trainLanes = new int[5]
+    {
+        -14, 
+        -7, 
+        0, 
+        7, 
+        14
+    };
 
     [SerializeField] Zone[] zones;
 
@@ -39,9 +47,9 @@ public class MapGenerator : MonoBehaviour
             SelectNewZoneTileFromList(chosenZone);
         }
 
-        SpawnNewTile(zones[chosenZone].TunnelEntrance);
+        SpawnNewTile(zones[chosenZone].TunnelEntrance, chosenZone);
         numberOftiles++;
-        SpawnNewTile(zones[chosenZone].TunnelExit);
+        SpawnNewTile(zones[chosenZone].TunnelExit, chosenZone);
         numberOftiles++;
     }
 
@@ -54,10 +62,10 @@ public class MapGenerator : MonoBehaviour
     void SelectNewZoneTileFromList(int zoneID)
     {
         GameObject chosenTile = zones[zoneID].Tiles[UnityEngine.Random.Range(0, zones[0].Tiles.Length)];
-        SpawnNewTile(chosenTile);
+        SpawnNewTile(chosenTile, zoneID);
     }
 
-    void SpawnNewTile(GameObject tile)
+    void SpawnNewTile(GameObject tile, int zoneID)
     {
         Vector3 newTilePosition = originTransform.position;
         Quaternion rot = Quaternion.identity;
@@ -67,6 +75,8 @@ public class MapGenerator : MonoBehaviour
         tiles.Add(temp);
 
         numberOfTilesSpawned++;
+
+        GenerateHumans(newTilePosition, zoneID);
     }
 
     public int SelectRandomZoneIndex()
@@ -147,4 +157,22 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    void GenerateHumans(Vector3 origin, int zoneID)
+    {
+        int numberOfHumans = UnityEngine.Random.Range(1, 10);
+        List<Vector3> spawnedPositions = new List<Vector3>();
+
+        for(int i = 0; i < numberOfHumans;)
+        {
+            int chosenLane = trainLanes[UnityEngine.Random.Range(0, trainLanes.Length)];
+            Vector3 newRandomPosition = new Vector3(chosenLane, origin.y, origin.z + UnityEngine.Random.Range(-20, 21));
+            
+            if(!spawnedPositions.Contains(newRandomPosition))
+            {
+                spawnedPositions.Add(newRandomPosition);
+                Instantiate(zones[zoneID].Humans[UnityEngine.Random.Range(0, zones[zoneID].Humans.Length)], newRandomPosition, Quaternion.identity);
+                i++;
+            }
+        }
+    }
 }

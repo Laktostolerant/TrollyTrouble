@@ -29,3 +29,5 @@ MonoBehaviour:
   zoneMaxSize: 4
   skybox: {fileID: 0}
   brightness: 0
+  humans:
+  - {fileID: 6807728101276467629, guid: 6e00d26d4eeba7346992d9681e1bbded, type: 3}

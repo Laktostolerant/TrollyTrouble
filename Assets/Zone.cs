@@ -33,4 +33,7 @@ public class Zone : ScriptableObject
 
     [SerializeField] Skybox skybox;
     [SerializeField] float brightness;
+
+    [SerializeField] GameObject[] humans;
+    public GameObject[] Humans { get {  return humans; } set {  humans = value; } }
 }

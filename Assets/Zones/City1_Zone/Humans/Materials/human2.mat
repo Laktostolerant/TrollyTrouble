@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FRICK
+  m_Name: human2
   m_Shader: {fileID: -6465566751694194690, guid: c2b595aad4f1a1241b25c3becffbbe73,
     type: 3}
   m_Parent: {fileID: 0}
@@ -42,7 +42,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture:
-        m_Texture: {fileID: 2800000, guid: b460d87087f66d045b258d647d94a011, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4abcafb53bd8820498e073d7228af161, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:

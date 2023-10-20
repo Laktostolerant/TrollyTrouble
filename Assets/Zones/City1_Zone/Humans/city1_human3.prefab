@@ -82,11 +82,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 319b8473cac80304ea6882da02375a89, type: 2}
+      objectReference: {fileID: 2100000, guid: 7e4aeeb4c294ed143ba02207d0b56599, type: 2}
     - target: {fileID: 919132149155446097, guid: 4f9b0532a29fca149a6396f175e356d0,
         type: 3}
       propertyPath: m_Name
-      value: Human1
+      value: city1_human3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

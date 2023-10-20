@@ -7,12 +7,15 @@ public class Human : MonoBehaviour
     [SerializeField] float speed = 1f;
     bool obstructed;
     LayerMask humanMask = (1 << 0) | (0 << 6);
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        speed = Random.Range(1.2f, 2f);
+        speed = Random.Range(2f, 5f);
         Invoke("CheckAhead", 0);
+        animator = GetComponentInChildren<Animator>();
+        //animator.speed = Random.Range()
     }
 
     // Update is called once per frame
@@ -21,21 +24,23 @@ public class Human : MonoBehaviour
         if (obstructed)
             return;
 
-        transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, transform.position.y, transform.position.z + speed), Time.fixedDeltaTime);
+        transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, transform.position.y, transform.position.z + speed), Time.fixedDeltaTime * speed);
     }
 
     void CheckAhead()
     {
-
         Vector3 originPos = new Vector3(transform.position.x, transform.position.y + 3, transform.position.z);
 
         Debug.DrawRay(originPos, transform.forward * 5, Color.red, 0.5f);
         if (Physics.Raycast(originPos, Vector3.forward, 5, humanMask))
         {
             obstructed = true;
-            Animator animator = GetComponentInChildren<Animator>();
             animator.SetBool("running", false);
-            return;
+        }
+        else
+        {
+            obstructed = false;
+            animator.SetBool("running", true);
         }
 
         Invoke("CheckAhead", 0.5f);

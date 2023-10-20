@@ -25,9 +25,11 @@ MonoBehaviour:
     type: 3}
   tunnelExit: {fileID: 5254062313787861263, guid: 6749bca0a26389e46a71f01326f8c3e1,
     type: 3}
-  zoneMinSize: 3
-  zoneMaxSize: 4
+  zoneMinSize: 30
+  zoneMaxSize: 70
   skybox: {fileID: 0}
   brightness: 0
   humans:
   - {fileID: 6807728101276467629, guid: 6e00d26d4eeba7346992d9681e1bbded, type: 3}
+  - {fileID: 6807728101276467629, guid: 35bb1d58f6548ff43bfc4a5a2a26a651, type: 3}
+  - {fileID: 6807728101276467629, guid: 44c3c8360f44a9144b88e8575ce286db, type: 3}

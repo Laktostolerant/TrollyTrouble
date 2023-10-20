@@ -159,17 +159,20 @@ public class MapGenerator : MonoBehaviour
 
     void GenerateHumans(Vector3 origin, int zoneID)
     {
-        int numberOfHumans = UnityEngine.Random.Range(1, 10);
+        int numberOfHumans = UnityEngine.Random.Range(0, 5);
         List<Vector3> spawnedPositions = new List<Vector3>();
+        int[] spawnedPerLane = new int[5];
 
         for(int i = 0; i < numberOfHumans;)
         {
-            int chosenLane = trainLanes[UnityEngine.Random.Range(0, trainLanes.Length)];
-            Vector3 newRandomPosition = new Vector3(chosenLane, origin.y, origin.z + UnityEngine.Random.Range(-20, 21));
+            int chosenLane = UnityEngine.Random.Range(0, trainLanes.Length);
+            int chosenLaneValue = trainLanes[chosenLane];
+            Vector3 newRandomPosition = new Vector3(chosenLaneValue, origin.y, origin.z + UnityEngine.Random.Range(-20, 21));
             
-            if(!spawnedPositions.Contains(newRandomPosition))
+            if(!spawnedPositions.Contains(newRandomPosition) && spawnedPerLane[chosenLane] <= 2)
             {
                 spawnedPositions.Add(newRandomPosition);
+                spawnedPerLane[chosenLane]++;
                 Instantiate(zones[zoneID].Humans[UnityEngine.Random.Range(0, zones[zoneID].Humans.Length)], newRandomPosition, Quaternion.identity);
                 i++;
             }
